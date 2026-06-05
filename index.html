@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BACCARAT ELITE - Premium Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f0f18;
+            --gold: #d4af37;
+            --gold-light: #f4d03f;
+            --gold-dark: #b8860b;
+            --emerald: #10b981;
+            --emerald-light: #34d399;
+            --emerald-dark: #059669;
+            --ruby: #e11d48;
+            --ruby-light: #f43f5e;
+            --sapphire: #3b82f6;
+            --sapphire-light: #60a5fa;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: rgba(212, 175, 55, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .font-display { font-family: 'Playfair Display', serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Login Page Styles */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+            position: relative;
+            z-index: 10;
+        }
+
+        .login-card {
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.98), rgba(15, 15, 25, 0.95));
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5), 0 0 80px rgba(212, 175, 55, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 15px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .login-logo p {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .login-input-group {
+            margin-bottom: 24px;
+        }
+
+        .login-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .login-input-wrapper {
+            position: relative;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 16px 48px 16px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .login-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: var(--gold);
+        }
+
+        .login-error {
+            background: rgba(225, 29, 72, 0.1);
+            border: 1px solid rgba(225, 29, 72, 0.3);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            color: var(--ruby-light);
+            font-size: 13px;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+            border: none;
+            border-radius: 12px;
+            color: var(--bg-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .login-footer p {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* Main App Styles */
+        .premium-bg {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 100% 80% at 50% -30%, rgba(212, 175, 55, 0.1), transparent),
+                radial-gradient(ellipse 80% 60% at 0% 100%, rgba(16, 185, 129, 0.08), transparent),
+                radial-gradient(ellipse 80% 60% at 100% 100%, rgba(59, 130, 246, 0.08), transparent);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: float-up 20s linear infinite;
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.95), rgba(15, 15, 25, 0.9));
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+        }
+
+        /* Expiry Badge */
+        .expiry-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.98), rgba(15, 15, 25, 0.95));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .expiry-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .expiry-icon svg {
+            width: 18px;
+            height: 18px;
+            color: var(--bg-primary);
+        }
+
+        .expiry-text {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .expiry-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .btn-premium {
+            position: relative;
+            padding: 18px 40px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-premium.player {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.2));
+            color: var(--sapphire-light);
+            border: 1px solid var(--sapphire);
+        }
+
+        .btn-premium.player:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-premium.banker {
+            background: linear-gradient(135deg, rgba(225, 29, 72, 0.3), rgba(225, 29, 72, 0.2));
+            color: var(--ruby-light);
+            border: 1px solid var(--ruby);
+        }
+
+        .btn-premium.banker:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(225, 29, 72, 0.4);
+        }
+
+        .btn-premium.tie {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.2));
+            color: var(--emerald-light);
+            border: 1px solid var(--emerald);
+        }
+
+        .btn-premium.tie:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-premium.gold {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: var(--bg-primary);
+        }
+
+        .btn-premium.gold:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-premium.secondary {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-premium.secondary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+        }
+.bead-container {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 10px;
+
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+        .bead-column {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .bead-cell {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bead-cell.player {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.5);
+        }
+
+        .bead-cell.banker {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            color: white;
+            box-shadow: 0 4px 16px rgba(225, 29, 72, 0.5);
+        }
+
+        .bead-cell.tie {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.5);
+        }
+
+        .bead-cell.empty {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(212, 175, 55, 0.2);
+        }
+
+        .bead-cell:hover { transform: scale(1.15); }
+
+        .result-cell {
+            width: 100%;
+            aspect-ratio: 1;
+            min-width: 20px;
+            max-width: 26px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .result-cell.correct {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+        }
+
+        .result-cell.wrong {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            color: white;
+            box-shadow: 0 0 12px rgba(225, 29, 72, 0.6);
+        }
+
+        .result-cell.empty {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(212, 175, 55, 0.15);
+        }
+
+        .pattern-row {
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.8), rgba(15, 15, 25, 0.7));
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 10px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pattern-row.top-pattern {
+            border: 1px solid var(--gold);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(20, 20, 35, 0.9));
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .history-grid-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 12px;
+        }
+
+        .history-row {
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            gap: 4px;
+        }
+
+        .quick-view {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 240px;
+            background: linear-gradient(135deg, rgba(8, 102, 39, 0.98), rgba(23, 3, 110, 0.95));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 40px rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(20px);
+        }
+
+        .quick-view-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center;
+        }
+
+        .quick-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .quick-item:hover {
+            background: rgba(212, 175, 55, 0.05);
+            transform: translateX(4px);
+        }
+
+        .quick-item.rank-1 {
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.2), transparent);
+            border-left: 3px solid var(--gold);
+        }
+
+        .quick-item.rank-2 {
+            background: linear-gradient(90deg, rgba(192, 192, 192, 0.15), transparent);
+            border-left: 3px solid #c0c0c0;
+        }
+
+        .quick-item.rank-3 {
+            background: linear-gradient(90deg, rgba(205, 127, 50, 0.15), transparent);
+            border-left: 3px solid #cd7f32;
+        }
+
+        .quick-rank {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .quick-rank.gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--bg-primary); }
+        .quick-rank.silver { background: linear-gradient(135deg, #e0e0e0, #c0c0c0); color: var(--bg-primary); }
+        .quick-rank.bronze { background: linear-gradient(135deg, #cd7f32, #b87333); color: white; }
+        .quick-rank.normal { background: rgba(255, 255, 255, 0.1); color: var(--text-secondary); }
+
+        .quick-name { flex: 1; font-size: 10px; margin-left: 10px; font-weight: 500; }
+
+        .quick-bet {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .quick-bet.player { background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(59, 130, 246, 0.3)); color: var(--sapphire-light); }
+        .quick-bet.banker { background: linear-gradient(135deg, rgba(225, 29, 72, 0.4), rgba(225, 29, 72, 0.3)); color: var(--ruby-light); }
+
+        .quick-percent {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            min-width: 45px;
+            text-align: right;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.9), rgba(15, 15, 25, 0.8));
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .bet-indicator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 20px;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bet-indicator.player {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(59, 130, 246, 0.3));
+            color: var(--sapphire-light);
+            border: 1px solid var(--sapphire);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .bet-indicator.banker {
+            background: linear-gradient(135deg, rgba(225, 29, 72, 0.4), rgba(225, 29, 72, 0.3));
+            color: var(--ruby-light);
+            border: 1px solid var(--ruby);
+            box-shadow: 0 0 20px rgba(225, 29, 72, 0.3);
+        }
+
+        .accuracy-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .accuracy-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .accuracy-fill.high { background: linear-gradient(90deg, var(--emerald-dark), var(--emerald), var(--emerald-light)); }
+        .accuracy-fill.medium { background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light)); }
+        .accuracy-fill.low { background: linear-gradient(90deg, var(--ruby), var(--ruby-light)); }
+
+        .top-badge {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+            color: var(--bg-primary);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            animation: gold-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes gold-pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, var(--gold), var(--gold-light)); }
+
+        @media (max-width: 768px) {
+            .quick-view {
+                position: fixed;
+                top: 60px;
+                right: 10px;
+                left: 10px;
+                width: auto;
+                max-height: 50vh;
+                overflow-y: auto;
+                transform: translateX(100%);
+                transition: transform 0.4s ease;
+            }
+            .quick-view.show { transform: translateX(0); }
+            .expiry-badge { top: 10px; left: 10px; padding: 8px 12px; }
+            .expiry-icon { width: 24px; height: 24px; }
+            .expiry-date { font-size: 12px; }
+            .stat-value { font-size: 24px; }
+            .section-title { font-size: 18px; }
+            .history-row { grid-template-columns: repeat(10, 1fr); }
+            .result-cell { min-width: 18px; max-width: 22px; font-size: 10px; }
+            .bead-cell { width: 32px; height: 32px; font-size: 11px; }
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-card">
+            <div class="login-logo">
+                <h1>BACCARAT ELITE</h1>
+                <p>Premium Analytics System</p>
+            </div>
+
+            <div id="loginError" class="login-error"></div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="login-input-group">
+                    <label class="login-label">Username</label>
+                    <div class="login-input-wrapper">
+                        <input type="text" id="username" class="login-input" placeholder="Enter username" autocomplete="username" required>
+                    </div>
+                </div>
+
+                <div class="login-input-group">
+                    <label class="login-label">Password</label>
+                    <div class="login-input-wrapper">
+                        <input type="password" id="password" class="login-input" placeholder="Enter password" autocomplete="current-password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <svg id="eyeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">SIGN IN</button>
+            </form>
+
+            <div class="login-footer">
+                <p>Licensed Software - Unauthorized Access Prohibited</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Page -->
+    <div id="mainApp" class="hidden">
+        <div class="premium-bg"></div>
+        <div class="particles" id="particles"></div>
+
+        <!-- Expiry Badge -->
+        <div class="expiry-badge">
+            <div class="expiry-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+            </div>
+            <div>
+                <div class="expiry-text">License Expires</div>
+                <div class="expiry-date" id="expiryDateDisplay">21 june 2026</div>
+            </div>
+        </div>
+
+        <div class="quick-view" id="quickView">
+            <div class="quick-view-title">AI Top 6 Accuracy</div>
+            <div id="quickViewContent"></div>
+        </div>
+
+        <div class="relative z-10 min-h-screen p-4 md:p-8 md:pr-[280px]">
+
+    <header class="max-w-6xl mx-auto mb-10">
+        <div class="text-center mb-8">
+
+            <!-- 🔥 ชื่อโปร -->
+            <h1 class="font-display text-2xl md:text-4xl font-black tracking-tight"
+                style="
+                    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                ">
+                BACCARAT ELITE AI
+            </h1>
+
+            <!-- 🔥 subtitle -->
+            <p class="text-sm mt-3 tracking-widest uppercase"
+               style="color: var(--text-muted); letter-spacing: 4px;">
+                20 PROFESSIONAL PATTERNS ANALYSIS SYSTEM
+            </p>
+
+            <!-- 🔥 © ผู้สร้าง -->
+            <div class="mt-4 flex justify-center">
+                <span style="
+                    background:linear-gradient(90deg,#7cffc4,#3fa9ff);
+                    padding:4px 14px;
+                    border-radius:999px;
+                    font-size:10px;
+                    color:#001;
+                    font-weight:700;
+                    letter-spacing:.5px;
+                    box-shadow:0 0 14px rgba(124,255,196,.35);
+                ">
+                    
+                </span>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto space-y-8">
+        <!-- Bead Road -->
+                <!-- Bead Road -->
+                <div class="glass-card p-8">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                        <div>
+                            <h2 class="section-title">Bead Road</h2>
+                            <p class="text-xs mt-4" style="color: var(--text-muted);">6 rows per column - auto scroll</p>
+                        </div>
+                        <div class="flex flex-wrap gap-6">
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 rounded-full" style="background: linear-gradient(135deg, var(--sapphire), #1d4ed8);"></div>
+                                <span class="text-sm font-medium">Player: <strong id="beadPlayer">0</strong></span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 rounded-full" style="background: linear-gradient(135deg, var(--ruby), #be123c);"></div>
+                                <span class="text-sm font-medium">Banker: <strong id="beadBanker">0</strong></span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 rounded-full" style="background: linear-gradient(135deg, var(--emerald), #059669);"></div>
+                                <span class="text-sm font-medium">Tie: <strong id="beadTie">0</strong></span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 rounded-full" style="background: linear-gradient(135deg, var(--gold), var(--gold-dark);"></div>
+                                <span class="text-sm font-medium">Total: <strong id="beadTotal">0</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="beadRoad" class="bead-container"></div>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: var(--sapphire-light);" id="totalPlayer">0</div>
+                        <div class="stat-label">Player</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: var(--ruby-light);" id="totalBanker">0</div>
+                        <div class="stat-label">Banker</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: var(--emerald-light);" id="totalTie">0</div>
+                        <div class="stat-label">Tie</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: var(--gold);" id="overallAccuracy">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" id="totalRounds">0</div>
+                        <div class="stat-label">Rounds</div>
+                    </div>
+                </div>
+
+                <!-- Input -->
+                <div class="glass-card p-8">
+                    <h2 class="section-title">Record Result</h2>
+                    <div class="flex flex-wrap gap-4 justify-center mt-6">
+                        <button onclick="addResult('player')" class="btn-premium player">Player (P)</button>
+                        <button onclick="addResult('banker')" class="btn-premium banker">Banker (B)</button>
+                        <button onclick="addResult('tie')" class="btn-premium tie">Tie (T)</button>
+                    </div>
+                    <div class="flex justify-center mt-6 gap-4">
+                        <button onclick="undoLast()" class="btn-premium secondary">Undo (U)</button>
+                        <button onclick="resetAll()" class="btn-premium banker">Reset All (R)</button>
+                    </div>
+                    <p class="text-center text-xs mt-4" style="color: var(--text-muted);">Keyboard: P = Player | B = Banker | T = Tie | U = Undo</p>
+                </div>
+
+                <!-- Patterns -->
+                <div class="glass-card p-8">
+                    <h2 class="section-title">20 Pattern Analysis</h2>
+                    <p class="text-xs mt-4 mb-6" style="color: var(--text-muted);">
+                        <span style="color: var(--emerald);">■</span> Correct | <span style="color: var(--ruby);">■</span> Wrong
+                    </p>
+                    <div id="patternRows" class="space-y-3"></div>
+                </div>
+
+                <!-- Top Prediction -->
+                <div class="glass-card p-8">
+                    <h2 class="section-title">Best Prediction</h2>
+                    <div id="bestPrediction" class="text-center py-8">
+                        <div class="text-sm mb-3" style="color: var(--text-muted);">Recommended Bet</div>
+                        <div id="topPatternName" class="font-display text-3xl font-bold mb-4" style="color: var(--gold);">-</div>
+                        <div id="topPatternBet" class="mb-6">-</div>
+                        <div class="flex justify-center gap-6">
+                            <div class="stat-card" style="min-width: 120px;">
+                                <div class="stat-value text-2xl" style="color: var(--gold);" id="topAccuracy">0%</div>
+                                <div class="stat-label">Accuracy</div>
+                            </div>
+                            <div class="stat-card" style="min-width: 120px;">
+                                <div class="stat-value text-2xl" style="color: var(--emerald);" id="topCorrect">0</div>
+                                <div class="stat-label">Correct</div>
+                            </div>
+                            <div class="stat-card" style="min-width: 120px;">
+                                <div class="stat-value text-2xl" style="color: var(--ruby);" id="topWrong">0</div>
+                                <div class="stat-label">Wrong</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent -->
+                <div class="glass-card p-8">
+                    <h2 class="section-title">Recent Results</h2>
+                    <div id="recentResults" class="flex flex-wrap gap-2 mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== EXPIRY CHECK =====
+        // 🔧 แก้ไขวันหมดอายุที่นี่ (ปี, เดือน-1, วัน, ชั่วโมง, นาที, วินาที)
+        // ⚠️ เดือนใช้ 0-11 (ม.ค.=0, ก.พ.=1, ..., ธ.ค.=11)
+        const EXP_DATE = new Date(2026, 5, 11, 23, 59, 59); // 11 june 2026 23:59:59
+        
+        (function(){
+            const now = new Date();
+            if(now > EXP_DATE){
+                document.body.innerHTML = `
+                <div style="display:flex;align-items:center;justify-content:center;height:100vh;
+                background:linear-gradient(135deg,#020617,#0a0a1a);color:white;font-family:Segoe UI;text-align:center">
+                    <div>
+                        <div style="font-size:80px;margin-bottom:20px">⛔</div>
+                        <div style="font-size:32px;font-weight:800;color:#f87171;margin-bottom:12px">
+                            โปรแกรมหมดอายุการใช้งาน
+                        </div>
+                        <div style="font-size:16px;color:#94a3b8;margin-bottom:8px">
+                            วันหมดอายุ: ${EXP_DATE.toLocaleDateString('th-TH', {day:'numeric',month:'long',year:'numeric'})}
+                        </div>
+                        <div style="font-size:14px;color:#64748b">
+                            กรุณาติดต่อผู้ดูแลระบบเพื่อต่ออายุการใช้งาน
+                        </div>
+                    </div>
+                </div>`;
+                throw new Error('Program expired');
+            }
+        })();
+
+        // ===== LOGIN API VERSION =====
+        let licenseCheckInterval = null;
+        let currentUser = null;
+        let currentPass = null;
+
+        // Check if logged in
+        function checkAuth() {
+            const loggedIn = sessionStorage.getItem('baccaratLoggedIn');
+            const loginTime = sessionStorage.getItem('baccaratLoginTime');
+            const savedUser = sessionStorage.getItem('baccaratUser');
+            const savedPass = sessionStorage.getItem('baccaratPass');
+            
+            if (loggedIn === 'true' && loginTime && savedUser && savedPass) {
+                // Check if session is valid (24 hours)
+                const loginDate = new Date(parseInt(loginTime));
+                const now = new Date();
+                const hoursDiff = (now - loginDate) / (1000 * 60 * 60);
+                
+                if (hoursDiff < 24) {
+                    currentUser = savedUser;
+                    currentPass = savedPass;
+                    
+                    showMainApp();
+                    startLicenseCheck();
+                    return;
+                }
+            }
+            showLogin();
+        }
+
+        function showLogin() {
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('mainApp').classList.add('hidden');
+        }
+
+        function showMainApp() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+            updateExpiryDisplay();
+            initializeApp();
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.innerHTML = `
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                `;
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.innerHTML = `
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                `;
+            }
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('loginError');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            if (!username || !password) {
+                errorDiv.textContent = 'กรุณากรอก Username และ Password';
+                errorDiv.classList.add('show');
+                return;
+            }
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'VERIFYING...';
+            errorDiv.classList.remove('show');
+            
+            try {
+                const res = await fetch(
+                    "https://morning-block-55bb.havanalanna.workers.dev/?user="
+                    + encodeURIComponent(username)
+                    + "&pass=" + encodeURIComponent(password)
+                );
+                
+                const data = await res.json();
+                
+                if (data.status === "ok") {
+                    // Success - save session
+                    currentUser = username;
+                    currentPass = password;
+                    
+                    sessionStorage.setItem('baccaratLoggedIn', 'true');
+                    sessionStorage.setItem('baccaratLoginTime', Date.now().toString());
+                    sessionStorage.setItem('baccaratUser', username);
+                    sessionStorage.setItem('baccaratPass', password);
+                    
+                    errorDiv.classList.remove('show');
+                    showMainApp();
+                    startLicenseCheck();
+                } else {
+                    // Failed
+                    errorDiv.textContent = data.message || 'User หรือ Password ไม่ถูกต้อง';
+                    errorDiv.classList.add('show');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'SIGN IN';
+                }
+            } catch (e) {
+                console.error('Login error:', e);
+                errorDiv.textContent = 'ไม่สามารถเชื่อมต่อ License Server ได้';
+                errorDiv.classList.add('show');
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'SIGN IN';
+            }
+        }
+
+        // License check every 30 seconds
+        function startLicenseCheck() {
+            if (licenseCheckInterval) {
+                clearInterval(licenseCheckInterval);
+            }
+            
+            licenseCheckInterval = setInterval(async () => {
+                if (!currentUser || !currentPass) return;
+                
+                try {
+                    const res = await fetch(
+                        "https://morning-block-55bb.havanalanna.workers.dev/?user="
+                        + encodeURIComponent(currentUser)
+                        + "&pass=" + encodeURIComponent(currentPass)
+                    );
+                    
+                    const data = await res.json();
+                    
+                    if (data.status !== "ok") {
+                        alert("⛔ License ถูกปิดใช้งาน หรือหมดอายุแล้ว");
+                        sessionStorage.removeItem('baccaratLoggedIn');
+                        sessionStorage.removeItem('baccaratLoginTime');
+                        sessionStorage.removeItem('baccaratUser');
+                        sessionStorage.removeItem('baccaratPass');
+                        location.reload();
+                    }
+                } catch (e) {
+                    console.log("License check error:", e);
+                }
+            }, 30000); // 30 seconds
+        }
+
+        function updateExpiryDisplay() {
+            const expiryDateEl = document.getElementById('expiryDateDisplay');
+            const options = { day: 'numeric', month: 'short', year: 'numeric' };
+            expiryDateEl.textContent = EXP_DATE.toLocaleDateString('en-GB', options);
+        }
+
+        // App State
+        let results = [];
+        let patternData = [];
+
+        // 20 Professional Patterns
+        const patterns = [
+            { id: 'dragon', name: 'Dragon (มังกร)', description: 'Follow streak 3+ same results',
+                predict: (history) => {
+                    if (history.length < 3) return 'banker';
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 2) return 'banker';
+                    const last = nonTie[nonTie.length - 1];
+                    let streak = 1;
+                    for (let i = nonTie.length - 2; i >= 0; i--) {
+                        if (nonTie[i] === last) streak++;
+                        else break;
+                    }
+                    return streak >= 3 ? last : 'banker';
+                }
+            },
+            { id: 'chop', name: 'Chop (ปิงปอง)', description: 'Alternating P-B-P-B pattern',
+                predict: (history) => {
+                    if (history.length < 4) return 'banker';
+                    const nonTie = history.filter(r => r !== 'tie').slice(-5);
+                    if (nonTie.length < 3) return 'banker';
+                    let isChop = true;
+                    for (let i = 1; i < nonTie.length; i++) {
+                        if (nonTie[i] === nonTie[i-1]) { isChop = false; break; }
+                    }
+                    return isChop ? (nonTie[nonTie.length-1] === 'player' ? 'banker' : 'player') : 'banker';
+                }
+            },
+            { id: 'double', name: 'Double (คู่)', description: 'PP or BB then opposite',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 2) return 'banker';
+                    const last = nonTie[nonTie.length - 1];
+                    const prev = nonTie[nonTie.length - 2];
+                    return last === prev ? (last === 'player' ? 'banker' : 'player') : 'banker';
+                }
+            },
+            { id: 'triple', name: 'Triple (ตรี)', description: 'PPP or BBB then opposite',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 3) return 'banker';
+                    const last3 = nonTie.slice(-3);
+                    return last3.every(r => r === last3[0]) ? (last3[0] === 'player' ? 'banker' : 'player') : 'banker';
+                }
+            },
+            { id: 'streakFollow', name: 'Streak Follow', description: 'Follow 2+ same results',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 2) return 'banker';
+                    const last = nonTie[nonTie.length - 1];
+                    let streak = 1;
+                    for (let i = nonTie.length - 2; i >= 0; i--) {
+                        if (nonTie[i] === last) streak++;
+                        else break;
+                    }
+                    return streak >= 2 ? last : 'banker';
+                }
+            },
+            { id: 'bias', name: 'Bias (เอียง)', description: 'Dominant side in last 8',
+                predict: (history) => {
+                    const last8 = history.filter(r => r !== 'tie').slice(-8);
+                    if (last8.length < 4) return 'banker';
+                    const p = last8.filter(r => r === 'player').length;
+                    const b = last8.filter(r => r === 'banker').length;
+                    if (p > b + 1) return 'player';
+                    if (b > p + 1) return 'banker';
+                    return 'banker';
+                }
+            },
+            { id: 'antiStreak', name: 'Anti-Streak', description: 'After 5+ same, bet opposite',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 5) return 'banker';
+                    const last = nonTie[nonTie.length - 1];
+                    let streak = 1;
+                    for (let i = nonTie.length - 2; i >= 0; i--) {
+                        if (nonTie[i] === last) streak++;
+                        else break;
+                    }
+                    return streak >= 5 ? (last === 'player' ? 'banker' : 'player') : 'banker';
+                }
+            },
+            { id: 'pattern122', name: 'Pattern 1-2-2', description: 'P-BB-P or B-PP-B pattern',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 4) return 'banker';
+                    const last4 = nonTie.slice(-4);
+                    if (last4[0] === 'player' && last4[1] === 'banker' && last4[2] === 'banker' && last4[3] === 'player') return 'banker';
+                    if (last4[0] === 'banker' && last4[1] === 'player' && last4[2] === 'player' && last4[3] === 'banker') return 'player';
+                    return 'banker';
+                }
+            },
+            { id: 'twin', name: 'Twin Pattern', description: 'Same as last non-tie',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    return nonTie.length > 0 ? nonTie[nonTie.length - 1] : 'banker';
+                }
+            },
+            { id: 'smartDefault', name: 'Smart Default', description: 'Banker with streak detection',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 2) return 'banker';
+                    const last = nonTie[nonTie.length - 1];
+                    let streak = 1;
+                    for (let i = nonTie.length - 2; i >= 0; i--) {
+                        if (nonTie[i] === last) streak++;
+                        else break;
+                    }
+                    return streak >= 7 ? (last === 'player' ? 'banker' : 'player') : 'banker';
+                }
+            },
+            { id: 'bigEyeBoy', name: 'Big Eye Boy', description: 'Derived road pattern analysis',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 6) return 'banker';
+                    const last = nonTie[nonTie.length - 1];
+                    const prev = nonTie[nonTie.length - 2];
+                    return last === prev ? last : (last === 'player' ? 'banker' : 'player');
+                }
+            },
+            { id: 'streakBreaker', name: 'Streak Breaker Pro', description: 'Break long streaks (6+)',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 6) return 'banker';
+                    const last = nonTie[nonTie.length - 1];
+                    let streak = 1;
+                    for (let i = nonTie.length - 2; i >= 0; i--) {
+                        if (nonTie[i] === last) streak++;
+                        else break;
+                    }
+                    return streak >= 6 ? (last === 'player' ? 'banker' : 'player') : 'banker';
+                }
+            },
+            { id: 'pattern123', name: 'Pattern 1-2-3', description: 'P-BB-BBB or B-PP-PPP',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 6) return 'banker';
+                    const last6 = nonTie.slice(-6);
+                    if (last6[0] === 'player' && last6[1] === 'banker' && last6[2] === 'banker' && last6[3] === 'player' && last6[4] === 'player' && last6[5] === 'player') return 'banker';
+                    if (last6[0] === 'banker' && last6[1] === 'player' && last6[2] === 'player' && last6[3] === 'banker' && last6[4] === 'banker' && last6[5] === 'banker') return 'player';
+                    return 'banker';
+                }
+            },
+            { id: 'bankerAdvantage', name: 'Banker Edge', description: 'Always bet banker (1.06% edge)',
+                predict: (history) => 'banker'
+            },
+            { id: 'fourInRow', name: 'Four In Row', description: 'After 4 same, bet opposite',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 4) return 'banker';
+                    const last = nonTie[nonTie.length - 1];
+                    let streak = 1;
+                    for (let i = nonTie.length - 2; i >= 0; i--) {
+                        if (nonTie[i] === last) streak++;
+                        else break;
+                    }
+                    return streak === 4 ? (last === 'player' ? 'banker' : 'player') : 'banker';
+                }
+            },
+            { id: 'patternZigZag', name: 'Zig-Zag Pattern', description: 'P-B-P-B after chop',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 6) return 'banker';
+                    const last6 = nonTie.slice(-6);
+                    let isZigZag = true;
+                    for (let i = 1; i < last6.length; i++) {
+                        if (last6[i] === last6[i-1]) { isZigZag = false; break; }
+                    }
+                    return isZigZag ? (last6[last6.length - 1] === 'player' ? 'banker' : 'player') : 'banker';
+                }
+            },
+            { id: 'gapPattern', name: 'Gap Analysis', description: 'Track gap between same results',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 10) return 'banker';
+                    let lastPlayerIdx = -1;
+                    let lastBankerIdx = -1;
+                    for (let i = nonTie.length - 1; i >= 0; i--) {
+                        if (nonTie[i] === 'player' && lastPlayerIdx === -1) lastPlayerIdx = nonTie.length - 1 - i;
+                        if (nonTie[i] === 'banker' && lastBankerIdx === -1) lastBankerIdx = nonTie.length - 1 - i;
+                        if (lastPlayerIdx !== -1 && lastBankerIdx !== -1) break;
+                    }
+                    if (lastPlayerIdx > 5) return 'player';
+                    if (lastBankerIdx > 5) return 'banker';
+                    return 'banker';
+                }
+            },
+            { id: 'paroliSystem', name: 'Paroli Method', description: 'Bet same after win, opposite after 3',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 3) return 'banker';
+                    const last = nonTie[nonTie.length - 1];
+                    let streak = 1;
+                    for (let i = nonTie.length - 2; i >= 0; i--) {
+                        if (nonTie[i] === last) streak++;
+                        else break;
+                    }
+                    if (streak >= 3) return last === 'player' ? 'banker' : 'player';
+                    return last;
+                }
+            },
+            { id: 'hotCold', name: 'Hot & Cold', description: 'Track hot/cold streaks',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 12) return 'banker';
+                    const last12 = nonTie.slice(-12);
+                    const playerCount = last12.filter(r => r === 'player').length;
+                    const bankerCount = last12.filter(r => r === 'banker').length;
+                    if (playerCount >= 8) return 'player';
+                    if (bankerCount >= 8) return 'banker';
+                    return 'banker';
+                }
+            },
+            { id: 'roadSwitch', name: 'Road Switch', description: 'Detect road switching',
+                predict: (history) => {
+                    const nonTie = history.filter(r => r !== 'tie');
+                    if (nonTie.length < 8) return 'banker';
+                    const last8 = nonTie.slice(-8);
+                    let switches = 0;
+                    for (let i = 1; i < last8.length; i++) {
+                        if (last8[i] !== last8[i-1]) switches++;
+                    }
+                    if (switches >= 5) return last8[last8.length - 1] === 'player' ? 'banker' : 'player';
+                    else if (switches <= 2) return last8[last8.length - 1];
+                    return 'banker';
+                }
+            }
+        ];
+
+        function initPatternData() {
+            patternData = patterns.map(p => ({
+                ...p,
+                history: [],
+                correct: 0,
+                wrong: 0,
+                accuracy: 0
+            }));
+        }
+
+        function initializeApp() {
+            createParticles();
+            initPatternData();
+            render();
+        }
+
+        function createParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (20 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        function addResult(type) {
+            patternData.forEach((pattern, index) => {
+                if (results.length >= 2) {
+                    const prediction = patterns[index].predict(results);
+                    const isCorrect = prediction === type && type !== 'tie';
+                    pattern.history.push({ predicted: prediction, actual: type, isCorrect });
+                    if (type !== 'tie') {
+                        if (isCorrect) pattern.correct++;
+                        else pattern.wrong++;
+                        pattern.accuracy = Math.round((pattern.correct / (pattern.correct + pattern.wrong)) * 100);
+                    }
+                }
+            });
+            results.push(type);
+            render();
+        }
+
+        function undoLast() {
+            if (results.length === 0) return;
+            results.pop();
+            initPatternData();
+            const tempResults = [...results];
+            tempResults.forEach((result, idx) => {
+                if (idx >= 2) {
+                    patternData.forEach((pattern, pIdx) => {
+                        const prediction = patterns[pIdx].predict(tempResults.slice(0, idx));
+                        const isCorrect = prediction === result && result !== 'tie';
+                        pattern.history.push({ predicted: prediction, actual: result, isCorrect });
+                        if (result !== 'tie') {
+                            if (isCorrect) pattern.correct++;
+                            else pattern.wrong++;
+                        }
+                    });
+                }
+            });
+            patternData.forEach(p => {
+                p.accuracy = p.correct + p.wrong > 0 ? Math.round((p.correct / (p.correct + p.wrong)) * 100) : 0;
+            });
+            render();
+        }
+
+        function resetAll() {
+            if (confirm('Are you sure you want to reset all data?')) {
+                results = [];
+                initPatternData();
+                render();
+            }
+        }
+
+        function render() {
+            renderBeadRoad();
+            renderStats();
+            renderPatternRows();
+            renderRecentResults();
+            renderTopPrediction();
+            renderQuickView();
+        }
+
+        function renderBeadRoad() {
+            const container = document.getElementById('beadRoad');
+            if (!container) return;
+            container.innerHTML = '';
+            document.getElementById('beadPlayer').textContent = results.filter(r => r === 'player').length;
+            document.getElementById('beadBanker').textContent = results.filter(r => r === 'banker').length;
+            document.getElementById('beadTie').textContent = results.filter(r => r === 'tie').length;
+            document.getElementById('beadTotal').textContent = results.length;
+            if (results.length === 0) {
+                container.innerHTML = '<div style="color: var(--text-muted); padding: 20px; text-align: center;">No results yet</div>';
+                return;
+            }
+            const rowsPerColumn = 6;
+            const totalColumns = Math.ceil(results.length / rowsPerColumn);
+            for (let col = 0; col < Math.max(totalColumns, 10); col++) {
+                const column = document.createElement('div');
+                column.className = 'bead-column';
+                for (let row = 0; row < rowsPerColumn; row++) {
+                    const index = col * rowsPerColumn + row;
+                    const cell = document.createElement('div');
+                    cell.className = 'bead-cell';
+                    if (index < results.length) {
+                        cell.classList.add(results[index]);
+                        cell.textContent = results[index] === 'player' ? 'P' : results[index] === 'banker' ? 'B' : 'T';
+                    } else {
+                        cell.classList.add('empty');
+                    }
+                    column.appendChild(cell);
+                }
+                container.appendChild(column);
+            }
+            container.scrollLeft = container.scrollWidth;
+        }
+
+        function renderStats() {
+            document.getElementById('totalPlayer').textContent = results.filter(r => r === 'player').length;
+            document.getElementById('totalBanker').textContent = results.filter(r => r === 'banker').length;
+            document.getElementById('totalTie').textContent = results.filter(r => r === 'tie').length;
+            document.getElementById('totalRounds').textContent = results.length;
+            const totalCorrect = patternData.reduce((sum, p) => sum + p.correct, 0);
+            const totalWrong = patternData.reduce((sum, p) => sum + p.wrong, 0);
+            const acc = totalCorrect + totalWrong > 0 ? Math.round((totalCorrect / (totalCorrect + totalWrong)) * 100) : 0;
+            document.getElementById('overallAccuracy').textContent = acc + '%';
+        }
+
+        function renderPatternRows() {
+            const container = document.getElementById('patternRows');
+            if (!container) return;
+            container.innerHTML = '';
+            const sorted = [...patternData].sort((a, b) => b.accuracy - a.accuracy);
+            const topId = sorted[0]?.accuracy > 0 ? sorted[0].id : null;
+            patternData.forEach((pattern, index) => {
+                const isTop = pattern.id === topId;
+                const row = document.createElement('div');
+                row.className = `pattern-row ${isTop ? 'top-pattern' : ''}`;
+                const history = pattern.history;
+                const rowsNeeded = Math.max(1, Math.ceil(history.length / 15));
+                let historyHTML = '<div class="history-grid-rows">';
+                for (let r = 0; r < rowsNeeded; r++) {
+                    historyHTML += '<div class="history-row">';
+                    for (let c = 0; c < 15; c++) {
+                        const idx = r * 15 + c;
+                        if (idx < history.length) {
+                            const entry = history[idx];
+                            if (entry.actual === 'tie') {
+                                historyHTML += '<div class="result-cell empty"></div>';
+                            } else {
+                                historyHTML += `<div class="result-cell ${entry.isCorrect ? 'correct' : 'wrong'}">${entry.isCorrect ? '✓' : '✗'}</div>`;
+                            }
+                        } else {
+                            historyHTML += '<div class="result-cell empty"></div>';
+                        }
+                    }
+                    historyHTML += '</div>';
+                }
+                historyHTML += '</div>';
+                const prediction = results.length >= 2 ? patterns[index].predict(results) : 'banker';
+                const accClass = pattern.accuracy >= 70 ? 'high' : pattern.accuracy >= 50 ? 'medium' : 'low';
+                row.innerHTML = `
+                    <div class="flex flex-col gap-3">
+                        <div class="flex flex-col md:flex-row md:items-center gap-3">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="font-display text-lg font-semibold" style="color: ${isTop ? 'var(--gold)' : 'var(--text-primary)'};">${pattern.name}</span>
+                                    ${isTop ? '<span class="top-badge">TOP</span>' : ''}
+                                </div>
+                                <div class="text-xs" style="color: var(--text-muted);">${pattern.description}</div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xs" style="color: var(--text-muted);">Bet:</span>
+                                    <span class="bet-indicator ${prediction}">${prediction.toUpperCase()}</span>
+                                </div>
+                                <div class="text-center" style="min-width: 70px;">
+                                    <div class="font-mono text-xl font-bold" style="color: ${isTop ? 'var(--gold)' : 'var(--text-primary)'};">${pattern.accuracy}%</div>
+                                    <div class="accuracy-bar mt-1"><div class="accuracy-fill ${accClass}" style="width: ${pattern.accuracy}%"></div></div>
+                                </div>
+                                <div class="flex gap-3 font-mono text-sm" style="min-width: 80px;">
+                                    <span style="color: var(--emerald);">✓${pattern.correct}</span>
+                                    <span style="color: var(--ruby);">✗${pattern.wrong}</span>
+                                </div>
+                            </div>
+                        </div>
+                        ${historyHTML}
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function renderRecentResults() {
+            const container = document.getElementById('recentResults');
+            if (!container) return;
+            if (results.length === 0) {
+                container.innerHTML = '<span style="color: var(--text-muted);">No results yet</span>';
+                return;
+            }
+            container.innerHTML = results.slice(-40).map((r) => 
+                `<div class="bead-cell ${r}" style="width:32px;height:32px;">${r === 'player' ? 'P' : r === 'banker' ? 'B' : 'T'}</div>`
+            ).join('');
+        }
+
+        function renderTopPrediction() {
+            const sorted = [...patternData].sort((a, b) => b.accuracy - a.accuracy);
+            const top = sorted[0];
+            if (!top || results.length < 3 || top.accuracy === 0) {
+                document.getElementById('topPatternName').textContent = '-';
+                document.getElementById('topPatternBet').innerHTML = '-';
+                document.getElementById('topAccuracy').textContent = '0%';
+                document.getElementById('topCorrect').textContent = '0';
+                document.getElementById('topWrong').textContent = '0';
+                return;
+            }
+            const prediction = patterns.find(p => p.id === top.id).predict(results);
+            document.getElementById('topPatternName').textContent = top.name;
+            document.getElementById('topPatternBet').innerHTML = `<span class="bet-indicator ${prediction}" style="font-size: 18px; padding: 12px 32px;">${prediction.toUpperCase()}</span>`;
+            document.getElementById('topAccuracy').textContent = top.accuracy + '%';
+            document.getElementById('topCorrect').textContent = top.correct;
+            document.getElementById('topWrong').textContent = top.wrong;
+        }
+
+        function renderQuickView() {
+            const container = document.getElementById('quickViewContent');
+            if (!container) return;
+            const sorted = [...patternData].filter(p => p.accuracy > 0).sort((a, b) => b.accuracy - a.accuracy).slice(0, 6);
+            if (sorted.length === 0) {
+                container.innerHTML = '<div class="text-center py-6" style="color: var(--text-muted); font-size: 12px;">Need 3+ results</div>';
+                return;
+            }
+            container.innerHTML = sorted.map((p, i) => {
+                const prediction = patterns.find(pat => pat.id === p.id).predict(results);
+                const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
+                const rankBg = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'normal';
+                return `
+                    <div class="quick-item ${rankClass}">
+                        <div class="quick-rank ${rankBg}">${i + 1}</div>
+                        <div class="quick-name">${p.name.split(' ')[0]}</div>
+                        <span class="quick-bet ${prediction}">${prediction === 'player' ? 'P' : 'B'}</span>
+                        <div class="quick-percent" style="color: ${i === 0 ? 'var(--gold)' : 'var(--text-primary)'};">${p.accuracy}%</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('mainApp').classList.contains('hidden')) return;
+            
+            if (e.key === 'p' || e.key === 'P') addResult('player');
+            if (e.key === 'b' || e.key === 'B') addResult('banker');
+            if (e.key === 't' || e.key === 'T') addResult('tie');
+            if (e.key === 'u' || e.key === 'U') undoLast();
+            if (e.key === 'r' || e.key === 'R') resetAll();
+        });
+
+        // Check auth on load
+        checkAuth();
+    </script>
+</body>
+</html>
